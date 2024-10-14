@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, ChangeEvent } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/./ui/button";
-import { CLIENT_STATIC_FILES_RUNTIME_REACT_REFRESH } from "next/dist/shared/lib/constants";
+
 
 export default function Countdown () {
     const [duration, setDuration] = useState<number | string>("");
@@ -22,12 +22,14 @@ export default function Countdown () {
             }
         }
     };
+
     const handleStart = (): void => {
         if (timeLeft > 0) {
             setIsActive(true);
             setIsPaused(false);
         }
     };
+
     const handlePause = (): void => {
         if (isActive) {
             setIsPaused(true);
@@ -37,6 +39,7 @@ export default function Countdown () {
             }
         }
     };
+
     const handleReset = (): void => {
         setIsActive(false);
         setIsPaused(false);
@@ -45,6 +48,7 @@ export default function Countdown () {
             clearInterval(timerRef.current);
         }
     };
+
     useEffect(()=> {
         if(isActive && !isPaused) {
             timerRef.current = setInterval(() => {
@@ -63,13 +67,15 @@ export default function Countdown () {
             }
         };
 
-    }, [isActive, isPaused])
+    }, [isActive, isPaused]);
+
     const formatTime = (time: number): string => {
         const minutes = Math.floor(time/60);
         const seconds = time % 60;
         return `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`
         
     };
+
     const handleDurationSet = (e: ChangeEvent<HTMLInputElement>): void => {
         setDuration(Number(e.target.value) || "");
     };
